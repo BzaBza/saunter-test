@@ -1,12 +1,16 @@
 import React, {Component} from 'react';
+import { Col } from 'reactstrap';
+import AddPath from "../add-path";
 
 class MainHeader extends Component {
   render() {
     return (
-     <header className="col-md-12 justify-content-between d-flex border-bottom">
-        <h1>Saunter</h1>
-       <button className="btn-primary">Add path</button>
-     </header>
+     <Col col="12">
+       <div className="justify-content-between d-flex border-bottom">
+         <h1>Saunter</h1>
+         <AddPath/>
+       </div>
+     </Col>
     );
   }
 }

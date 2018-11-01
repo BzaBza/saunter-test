@@ -1,11 +1,18 @@
 import React, {Component} from 'react';
+import {Col, Button, Form} from 'reactstrap';
+import SimpleMap from "../../components/map";
 
 class MainPage extends Component {
   render() {
     return (
      <div className="d-flex">
-       <div className="col-md-6">
-         <header><input type="text" placeholder={'search'}/></header>
+       <Col md="6">
+         <header>
+           <Form className="form-inline">
+             <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+             <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+           </Form>
+         </header>
          <ul>
            <li className="d-flex align-items-center">
              <div>
@@ -20,13 +27,13 @@ class MainPage extends Component {
              <div>
                <p>1KM</p>
              </div>
-             <button className="bg-transparent"> > </button>
+             <Button color="bg-transparent"> > </Button>
            </li>
          </ul>
-       </div>
-       <div className="col-md-6">
-         map
-       </div>
+       </Col>
+       <Col md="6">
+         <SimpleMap/>
+       </Col>
      </div>
     );
   }
