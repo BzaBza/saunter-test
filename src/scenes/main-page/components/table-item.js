@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Button } from 'reactstrap';
+import { Button, ListGroup, ListGroupItem } from 'reactstrap';
 import {connect} from "react-redux";
 import {getCurrentPath} from "../../../redux-stuff/actions/currentPath";
 
@@ -18,9 +18,9 @@ class TableItem extends Component {
 
   render() {
     return (
-       <ul>
+       <ListGroup className="path-list">
          {this.props.pathData.map((value, index)=>
-           <li className="d-flex align-items-center" key={index} onClick={()=>{this.openPath(value)}}>
+           <ListGroupItem className="d-flex align-items-center" key={index} onClick={()=>{this.openPath(value)}}>
              <div>
                Logo
              </div>
@@ -29,15 +29,15 @@ class TableItem extends Component {
                  <div className={`${value.isFavorite ? 'd-block' : 'd-none'}`}>X</div>
                  <h3>{value.pathTitle}</h3>
                </div>
-               <p>{value.pathDescription}</p>
+               <span>{value.pathDescription}</span>
              </div>
              <div>
                <p>{value.pathLength}</p>
              </div>
              <Button color="bg-transparent"> > </Button>
-           </li>
+           </ListGroupItem>
          )}
-       </ul>
+       </ListGroup>
     );
   }
 }

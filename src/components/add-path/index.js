@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, Label, Input, Col } from 'reactstrap';
-import SimpleMap from "../map";
+import Map from "../map";
 
 class AddPath extends Component {
   constructor(props) {
@@ -30,7 +30,7 @@ class AddPath extends Component {
 
   render() {
     return (
-     <div>
+     <div className="d-flex align-items-center">
        <Button color="primary" onClick={this.toggle}>Add path</Button>
        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}
               backdrop={this.state.backdrop}>
@@ -46,7 +46,7 @@ class AddPath extends Component {
                  </Form>
                </Col>
                <Col md="6">
-                 <SimpleMap/>
+                 <Map/>
                </Col>
              </div>
          </ModalBody>

@@ -6,7 +6,7 @@ var mocPathData = [
     '               voluptatibus.',
     pathLength: '13 KM',
     isFavorite: true,
-    lat: 59.95,
+    lat: 51.95,
     lng: 30.33,
     id: '_' + Math.random().toString(36).substr(2, 9)
   },{
@@ -16,7 +16,7 @@ var mocPathData = [
     '               voluptatibus.',
     pathLength: '13 KM',
     isFavorite: false,
-    lat: 59.95,
+    lat: 53.95,
     lng: 30.33,
     id: '_' + Math.random().toString(36).substr(2, 9)
   },{
@@ -27,7 +27,7 @@ var mocPathData = [
     pathLength: '13 KM',
     isFavorite: false,
     lat: 59.95,
-    lng: 30.33,
+    lng: 33.33,
     id: '_' + Math.random().toString(36).substr(2, 9)
   },{
     pathTitle: 'Path title4',
@@ -36,8 +36,8 @@ var mocPathData = [
     '               voluptatibus.',
     pathLength: '13 KM',
     isFavorite: false,
-    lat: 59.95,
-    lng: 30.33,
+    lat: [55.95, 55.2],
+    lng: [30.33, 30.1],
     id: '_' + Math.random().toString(36).substr(2, 9)
   },{
     pathTitle: 'Path title5',
@@ -46,8 +46,8 @@ var mocPathData = [
     '               voluptatibus.',
     pathLength: '13 KM',
     isFavorite: false,
-    lat: 59.95,
-    lng: 30.33,
+    lat: 51.95,
+    lng: 22.33,
     id: '_' + Math.random().toString(36).substr(2, 9)
   },{
     pathTitle: 'Path title6',
@@ -56,8 +56,8 @@ var mocPathData = [
     '               voluptatibus.',
     pathLength: '13 KM',
     isFavorite: false,
-    lat: 59.95,
-    lng: 30.33,
+    lat: 59.35,
+    lng: 30.13,
     id: '_' + Math.random().toString(36).substr(2, 9)
   }
 ];

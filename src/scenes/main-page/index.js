@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {Col, Form} from 'reactstrap';
-import SimpleMap from "../../components/map";
+import Map from "../../components/map";
 import TableItem from "./components/table-item";
 import {fetchPathData} from "../../redux-stuff/actions/fetchPathData";
 import {getCurrentPath} from "../../redux-stuff/actions/currentPath";
@@ -30,7 +30,7 @@ class MainPage extends Component {
            <span>{this.props.currentPathData.pathLength}</span>
          </div>
          <p>{this.props.currentPathData.pathDescription}</p>
-         <SimpleMap/>
+         <Map/>
          <button>Favorite</button>
          <button>Remove</button>
        </Col>
