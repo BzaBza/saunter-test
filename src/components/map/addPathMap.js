@@ -4,8 +4,10 @@ import React from "react"
 import {compose, withProps, withStateHandlers, lifecycle} from "recompose"
 import {withScriptjs, withGoogleMap, GoogleMap, DirectionsRenderer} from "react-google-maps"
 import PropTypes from "prop-types";
+import connect from "react-redux/es/connect/connect";
+import {getNewPath} from "../../redux-stuff/actions/newPath";
 
-let directions = [[41.8507300, -87.6512600], [41.8507300, -87.6512600]];
+let directions = [{lat:41.8507300, lng: -87.6512600}, {lat: 41.8507300, lng: -87.6512600}];
 
 const MyMapComponent = compose(
  withProps({
@@ -19,7 +21,7 @@ const MyMapComponent = compose(
  }), {
    onMapClick: ({isMarkerShown}) => (e) => (
     {
-      directions: directions.push([e.latLng.lat(), e.latLng.lng()]),
+      directions: directions.push({lat: e.latLng.lat(), lng: e.latLng.lng()}),
       isMarkerShown: true
     }
    )
@@ -29,11 +31,10 @@ const MyMapComponent = compose(
  lifecycle({
    componentDidMount() {
      const DirectionsService = new google.maps.DirectionsService();
-     console.log(directions[0][0], directions[0][1]);
      DirectionsService.route({
-       origin: new google.maps.LatLng(directions[0][0], directions[0][1]),
-       destination: new google.maps.LatLng(directions[directions.length - 1][0], directions[directions.length - 1][1]),
-       travelMode: google.maps.TravelMode.DRIVING,
+       origin: new google.maps.LatLng(directions[0].lat, directions[0].lng),
+       destination: new google.maps.LatLng(directions[directions.length - 1].lat, directions[directions.length - 1].lng),
+       travelMode: google.maps.TravelMode.WALKING,
      }, (result, status) => {
        if (status === google.maps.DirectionsStatus.OK) {
          this.setState({
@@ -45,12 +46,12 @@ const MyMapComponent = compose(
      });
    },
    componentWillReceiveProps() {
+     this.props.onGetNewPath(directions);
      const DirectionsService = new google.maps.DirectionsService();
-     console.log(directions[0][0], directions[0][1]);
      DirectionsService.route({
-       origin: new google.maps.LatLng(directions[0][0], directions[0][1]),
-       destination: new google.maps.LatLng(directions[directions.length - 1][0], directions[directions.length - 1][1]),
-       travelMode: google.maps.TravelMode.DRIVING,
+       origin: new google.maps.LatLng(directions[0].lat, directions[0].lng),
+       destination: new google.maps.LatLng(directions[directions.length - 1].lat, directions[directions.length - 1].lng),
+       travelMode: google.maps.TravelMode.WALKING,
      }, (result, status) => {
        if (status === google.maps.DirectionsStatus.OK) {
          this.setState({
@@ -87,22 +88,23 @@ class AddPathMap extends React.PureComponent {
     }, 3000)
   };
 
-  handleMarkerClick = () => {
-    this.setState({isMarkerShown: false});
-    this.delayedShowMarker()
-  };
-
   render() {
     return (
      <MyMapComponent
-      onMarkerClick={this.handleMarkerClick}
       directions={directions}
+      onGetNewPath={this.props.onGetNewPath}
      />
     )
   }
 }
-
-Map.propTypes = {
-  currentPathData: PropTypes.object,
+AddPathMap.propTypes = {
+  newPath: PropTypes.array,
 };
-export default AddPathMap;
+export default connect(
+ state => ({
+   newPath: state.newPath,
+ }), dispatch => ({
+   onGetNewPath: (directions) => {
+     dispatch(getNewPath(directions));
+   },
+ }))(AddPathMap);

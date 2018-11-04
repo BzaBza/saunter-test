@@ -1,8 +1,10 @@
 import {combineReducers} from 'redux';
 import pathData from './pathData'
 import currentPathData from './currentPath'
+import newPath from './newPath'
 
 export default combineReducers({
   pathData,
-  currentPathData
+  currentPathData,
+  newPath,
 });

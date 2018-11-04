@@ -29,8 +29,8 @@ class MainPage extends Component {
            <h3>{this.props.currentPathData.pathTitle}</h3>
            <span>{this.props.currentPathData.pathLength}</span>
          </div>
-         <p>{this.props.currentPathData.pathDescription}</p>
-         <Map/>
+         <p>{this.props.currentPathData.fullDescription}</p>
+         <Map currentPathData={this.props.currentPathData}/>
          <button>Favorite</button>
          <button>Remove</button>
        </Col>

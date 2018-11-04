@@ -1,11 +1,8 @@
 /* eslint-disable no-undef */
-
 import React from "react"
-import {compose, withProps, withStateHandlers, lifecycle} from "recompose"
+import {compose, withProps, lifecycle} from "recompose"
 import {withScriptjs, withGoogleMap, GoogleMap, DirectionsRenderer} from "react-google-maps"
 import PropTypes from "prop-types";
-import connect from "react-redux/es/connect/connect";
-import {getCurrentPath} from "../../redux-stuff/actions/currentPath";
 
 const MyMapComponent = compose(
  withProps({
@@ -18,15 +15,35 @@ const MyMapComponent = compose(
  withGoogleMap,
  lifecycle({
    componentDidMount() {
+     console.log(this.props.currentPathData[this.props.currentPathData.length - 1].lat)
      const DirectionsService = new google.maps.DirectionsService();
-     console.log(this.props.currentPathData[0].lat);
      DirectionsService.route({
        origin: new google.maps.LatLng(this.props.currentPathData[0].lat, this.props.currentPathData[0].lng),
        destination: new google.maps.LatLng(
         this.props.currentPathData[this.props.currentPathData.length - 1].lat,
         this.props.currentPathData[this.props.currentPathData.length - 1].lng
        ),
-       travelMode: google.maps.TravelMode.DRIVING,
+       travelMode: google.maps.TravelMode.WALKING,
+     }, (result, status) => {
+       if (status === google.maps.DirectionsStatus.OK) {
+         this.setState({
+           directions: result,
+         });
+       } else {
+         console.error(`error fetching directions ${result}`);
+       }
+     });
+   },
+   componentWillReceiveProps() {
+     console.log(this.props.currentPathData[this.props.currentPathData.length - 1].lat)
+     const DirectionsService = new google.maps.DirectionsService();
+     DirectionsService.route({
+       origin: new google.maps.LatLng(this.props.currentPathData[0].lat, this.props.currentPathData[0].lng),
+       destination: new google.maps.LatLng(
+        this.props.currentPathData[this.props.currentPathData.length - 1].lat,
+        this.props.currentPathData[this.props.currentPathData.length - 1].lng
+       ),
+       travelMode: google.maps.TravelMode.WALKING,
      }, (result, status) => {
        if (status === google.maps.DirectionsStatus.OK) {
          this.setState({
@@ -88,11 +105,4 @@ class Map extends React.PureComponent {
 Map.propTypes = {
   currentPathData: PropTypes.object,
 };
-export default connect(
- state => ({
-   currentPathData: state.currentPathData,
- }), dispatch => ({
-   onGetCurrentPath: () => {
-     dispatch(getCurrentPath());
-   }
- }))(Map);
+export default Map;

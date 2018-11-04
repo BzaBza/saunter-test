@@ -9,13 +9,13 @@ class TableItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      usersData: props.usersData,
     };
     this.openPath = this.openPath.bind(this)
   }
 
   openPath(pathData){
     this.props.onGetCurrentPath(pathData);
+    console.log(pathData)
   }
 
   render() {
@@ -31,7 +31,7 @@ class TableItem extends Component {
                  <div className={`${value.isFavorite ? 'd-block' : 'd-none'}`}><MdStarBorder/></div>
                  <h3>{value.pathTitle}</h3>
                </div>
-               <span>{value.pathDescription}</span>
+               <span>{value.shortDescription}</span>
              </div>
              <div>
                <p>{value.pathLength}</p>
