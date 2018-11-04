@@ -17,7 +17,6 @@ class AddPath extends Component {
       shortDescription: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handelChange = this.handelChange.bind(this);
     this.toggle = this.toggle.bind(this);
     this.changeBackdrop = this.changeBackdrop.bind(this);
   }
@@ -37,14 +36,7 @@ class AddPath extends Component {
     );
     this.toggle()
   };
-  handelChange(event) {
-    event.preventDefault();
-    this.setState({
-      title: this.title.value,
-      fullDescription: this.fullDescription.value,
-      shortDescription: this.shortDescription.value,
-    })
-  }
+
   toggle() {
     this.setState({
       modal: !this.state.modal

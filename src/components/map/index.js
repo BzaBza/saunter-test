@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+
 import React from "react"
 import {compose, withProps, lifecycle} from "recompose"
 import {withScriptjs, withGoogleMap, GoogleMap, DirectionsRenderer} from "react-google-maps"
@@ -15,7 +16,6 @@ const MyMapComponent = compose(
  withGoogleMap,
  lifecycle({
    componentDidMount() {
-     console.log(this.props.currentPathData[this.props.currentPathData.length - 1].lat)
      const DirectionsService = new google.maps.DirectionsService();
      DirectionsService.route({
        origin: new google.maps.LatLng(this.props.currentPathData[0].lat, this.props.currentPathData[0].lng),
@@ -29,13 +29,10 @@ const MyMapComponent = compose(
          this.setState({
            directions: result,
          });
-       } else {
-         console.error(`error fetching directions ${result}`);
        }
      });
    },
-   componentWillReceiveProps() {
-     console.log(this.props.currentPathData[this.props.currentPathData.length - 1].lat)
+   componentDidUpdate() {
      const DirectionsService = new google.maps.DirectionsService();
      DirectionsService.route({
        origin: new google.maps.LatLng(this.props.currentPathData[0].lat, this.props.currentPathData[0].lng),

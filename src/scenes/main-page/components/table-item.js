@@ -21,7 +21,7 @@ class TableItem extends Component {
   render() {
     return (
        <ListGroup className="path-list">
-         {this.props.pathData.map((value, index)=>
+         {this.props.pathData.filter(item => item.pathTitle.includes(this.props.search || '')).map((value, index)=>
            <ListGroupItem className="d-flex align-items-center" key={index} onClick={()=>{this.openPath(value)}}>
              <div>
                <FaExpandArrowsAlt/>
