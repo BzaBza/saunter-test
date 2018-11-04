@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import { Button, ListGroup, ListGroupItem } from 'reactstrap';
+import { ListGroup, ListGroupItem } from 'reactstrap';
 import {connect} from "react-redux";
 import {getCurrentPath} from "../../../redux-stuff/actions/currentPath";
+import { FaChevronRight, FaExpandArrowsAlt } from "react-icons/fa";
+import { MdStarBorder } from "react-icons/md";
 
 class TableItem extends Component {
   constructor(props) {
@@ -22,11 +24,11 @@ class TableItem extends Component {
          {this.props.pathData.map((value, index)=>
            <ListGroupItem className="d-flex align-items-center" key={index} onClick={()=>{this.openPath(value)}}>
              <div>
-               Logo
+               <FaExpandArrowsAlt/>
              </div>
              <div>
                <div className="d-flex">
-                 <div className={`${value.isFavorite ? 'd-block' : 'd-none'}`}>X</div>
+                 <div className={`${value.isFavorite ? 'd-block' : 'd-none'}`}><MdStarBorder/></div>
                  <h3>{value.pathTitle}</h3>
                </div>
                <span>{value.pathDescription}</span>
@@ -34,7 +36,7 @@ class TableItem extends Component {
              <div>
                <p>{value.pathLength}</p>
              </div>
-             <Button color="bg-transparent"> > </Button>
+             <div><FaChevronRight/></div>
            </ListGroupItem>
          )}
        </ListGroup>

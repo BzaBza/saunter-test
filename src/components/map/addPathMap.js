@@ -4,8 +4,8 @@ import React from "react"
 import {compose, withProps, withStateHandlers, lifecycle} from "recompose"
 import {withScriptjs, withGoogleMap, GoogleMap, DirectionsRenderer} from "react-google-maps"
 import PropTypes from "prop-types";
-import connect from "react-redux/es/connect/connect";
-import {getCurrentPath} from "../../redux-stuff/actions/currentPath";
+
+let directions = [[41.8507300, -87.6512600], [41.8507300, -87.6512600]];
 
 const MyMapComponent = compose(
  withProps({
@@ -13,19 +13,43 @@ const MyMapComponent = compose(
    loadingElement: <div style={{height: `100%`}}/>,
    containerElement: <div style={{height: `80vh`}}/>,
    mapElement: <div style={{height: `100%`}}/>,
+ }), withStateHandlers(() => ({
+   isMarkerShown: false,
+   markerPosition: null
+ }), {
+   onMapClick: ({isMarkerShown}) => (e) => (
+    {
+      directions: directions.push([e.latLng.lat(), e.latLng.lng()]),
+      isMarkerShown: true
+    }
+   )
  }),
  withScriptjs,
  withGoogleMap,
  lifecycle({
    componentDidMount() {
      const DirectionsService = new google.maps.DirectionsService();
-     console.log(this.props.currentPathData[0].lat);
+     console.log(directions[0][0], directions[0][1]);
      DirectionsService.route({
-       origin: new google.maps.LatLng(this.props.currentPathData[0].lat, this.props.currentPathData[0].lng),
-       destination: new google.maps.LatLng(
-        this.props.currentPathData[this.props.currentPathData.length - 1].lat,
-        this.props.currentPathData[this.props.currentPathData.length - 1].lng
-       ),
+       origin: new google.maps.LatLng(directions[0][0], directions[0][1]),
+       destination: new google.maps.LatLng(directions[directions.length - 1][0], directions[directions.length - 1][1]),
+       travelMode: google.maps.TravelMode.DRIVING,
+     }, (result, status) => {
+       if (status === google.maps.DirectionsStatus.OK) {
+         this.setState({
+           directions: result,
+         });
+       } else {
+         console.error(`error fetching directions ${result}`);
+       }
+     });
+   },
+   componentWillReceiveProps() {
+     const DirectionsService = new google.maps.DirectionsService();
+     console.log(directions[0][0], directions[0][1]);
+     DirectionsService.route({
+       origin: new google.maps.LatLng(directions[0][0], directions[0][1]),
+       destination: new google.maps.LatLng(directions[directions.length - 1][0], directions[directions.length - 1][1]),
        travelMode: google.maps.TravelMode.DRIVING,
      }, (result, status) => {
        if (status === google.maps.DirectionsStatus.OK) {
@@ -40,25 +64,19 @@ const MyMapComponent = compose(
  })
 )((props) =>
  <GoogleMap
-  defaultZoom={14}
+  defaultZoom={15}
   defaultCenter={{
-    lat: props.currentPathData[0].lat,
-    lng: props.currentPathData[0].lng
+    lat: 41.8507300,
+    lng: -87.6512600,
   }}
+  onClick={props.onMapClick}
  >
-   {props.directions && <DirectionsRenderer directions={props.directions}/>}
 
+   {props.directions && <DirectionsRenderer directions={props.directions}/>}
  </GoogleMap>
 );
 
-class Map extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isMarkerShown: false,
-    };
-  }
-
+class AddPathMap extends React.PureComponent {
   componentDidMount() {
     this.delayedShowMarker()
   }
@@ -77,9 +95,8 @@ class Map extends React.PureComponent {
   render() {
     return (
      <MyMapComponent
-      isMarkerShown={this.state.isMarkerShown}
       onMarkerClick={this.handleMarkerClick}
-      currentPathData={this.props.currentPathData.coordinates}
+      directions={directions}
      />
     )
   }
@@ -88,11 +105,4 @@ class Map extends React.PureComponent {
 Map.propTypes = {
   currentPathData: PropTypes.object,
 };
-export default connect(
- state => ({
-   currentPathData: state.currentPathData,
- }), dispatch => ({
-   onGetCurrentPath: () => {
-     dispatch(getCurrentPath());
-   }
- }))(Map);
+export default AddPathMap;

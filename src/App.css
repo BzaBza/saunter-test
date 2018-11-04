@@ -10,3 +10,9 @@
   height: 90vh;
   overflow-y: auto;
 }
+.path-list>li{
+  cursor: pointer;
+}
+.modal-dialog{
+  max-width: 90%!important;
+}
