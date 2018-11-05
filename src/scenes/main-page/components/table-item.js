@@ -25,21 +25,25 @@ class TableItem extends Component {
              return -1
            } else{ return 1}
          }).map((value, index)=>
-           <ListGroupItem className="d-flex align-items-center" key={index} onClick={()=>{this.openPath(value)}}>
-             <div>
-               <FaExpandArrowsAlt/>
-             </div>
-             <div>
-               <div className="d-flex">
-                 <div className={`${value.isFavorite ? 'd-block' : 'd-none'}`}><MdStarBorder/></div>
-                 <h3>{value.pathTitle}</h3>
+           <ListGroupItem className="path-list-item d-flex align-items-center justify-content-between" key={index} onClick={()=>{this.openPath(value)}}>
+             <div className="d-flex align-items-center">
+               <div>
+                 <FaExpandArrowsAlt/>
                </div>
-               <span>{value.shortDescription}</span>
+               <div>
+                 <div className="d-flex">
+                   <div className={`${value.isFavorite ? 'd-block' : 'd-none'}`}><MdStarBorder/></div>
+                   <h3 className="path-title">{value.pathTitle}</h3>
+                 </div>
+                 <span className="path-description">{value.shortDescription}</span>
+               </div>
              </div>
-             <div>
-               <p>{value.pathLength}</p>
-             </div>
-             <div><FaChevronRight/></div>
+            <div className="d-flex align-items-center">
+              <div>
+                <span>{value.pathLength}</span>
+              </div>
+              <div><FaChevronRight/></div>
+            </div>
            </ListGroupItem>
          )}
        </ListGroup>

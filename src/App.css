@@ -10,9 +10,26 @@
   height: 90vh;
   overflow-y: auto;
 }
+.path-list-item{
+  min-height: 10%;
+}
 .path-list>li{
   cursor: pointer;
 }
 .modal-dialog{
   max-width: 90%!important;
+}
+
+@media only screen and (max-width: 1200px) {
+  .path-list-item {
+    font-size: 12px;
+  }
+  .path-title{
+    font-size: 14px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .path-description{
+    display: none;
+  }
 }
