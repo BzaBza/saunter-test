@@ -6,6 +6,7 @@ import Map from "../../components/map";
 import TableItem from "./components/table-item";
 import {fetchPathData} from "../../redux-stuff/actions/fetchPathData";
 import {getCurrentPath} from "../../redux-stuff/actions/currentPath";
+import {removeCurrentPath} from "../../redux-stuff/actions/removeCurrentPath";
 
 class MainPage extends Component {
   constructor(props) {
@@ -42,7 +43,7 @@ class MainPage extends Component {
          <Map currentPathData={this.props.currentPathData}/>
       <div className="d-flex justify-content-between container">
         <button className="btn">Favorite</button>
-        <button className="btn">Remove</button>
+        <button className="btn" onClick={()=>{this.props.onRemoveCurrentPath(this.props.currentPathData.id)}}>Remove</button>
       </div>
        </Col>
      </div>
@@ -63,5 +64,8 @@ export default connect(
    },
    onGetCurrentPath: () => {
      dispatch(getCurrentPath());
+   },
+   onRemoveCurrentPath: (currentPath) => {
+     dispatch(removeCurrentPath(currentPath));
    }
  }))(MainPage);
