@@ -53,6 +53,7 @@ class MainPage extends Component {
 
 MainPage.propTypes = {
   pathData: PropTypes.array,
+  currentPathData: PropTypes.object,
 };
 export default connect(
  state => ({

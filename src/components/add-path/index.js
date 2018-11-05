@@ -59,7 +59,7 @@ class AddPath extends Component {
        <Button color="primary" onClick={this.toggle}>Add path</Button>
        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}
               backdrop={this.state.backdrop}>
-         <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+         <ModalHeader toggle={this.toggle}>Add new path</ModalHeader>
          <ModalBody>
            <div className="d-flex">
              <Col md="6">
