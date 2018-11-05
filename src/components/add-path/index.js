@@ -70,10 +70,14 @@ class AddPath extends Component {
                         onChange={e => this.setState({ title: e.target.value })}/>
                  <Label htmlFor="">Short description</Label>
                  <Input type="textarea"
+                        maxlength="80"
+                        style={{resize: "none"}}
                         value={this.state.shortDescription}
                         onChange={e => this.setState({ shortDescription: e.target.value })}/>
                  <Label htmlFor="">Full description</Label>
                  <Input type="textarea"
+                        maxlength="160"
+                        style={{resize: "none"}}
                         value={this.state.fullDescription}
                         onChange={e => this.setState({ fullDescription: e.target.value })}/>
                  <div>Distance: {this.props.distance}</div>
