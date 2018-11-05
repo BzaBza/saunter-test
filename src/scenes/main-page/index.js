@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {Col, Form, Input, Button} from 'reactstrap';
+import {Col, Input} from 'reactstrap';
 import Map from "../../components/map";
 import TableItem from "./components/table-item";
 import {fetchPathData} from "../../redux-stuff/actions/fetchPathData";

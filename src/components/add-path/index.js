@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import {addNewPathData} from "../../redux-stuff/actions/addNewPathData";
 import {getNewPath} from "../../redux-stuff/actions/newPath";
+import {getDistance} from "../../redux-stuff/actions/getDistance";
 
 class AddPath extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class AddPath extends Component {
        pathTitle: this.state.title,
        pathDescription: this.state.shortDescription,
        shortDescription: this.state.shortDescription,
-       pathLength: this.state.fullDescription,
+       pathLength: this.props.distance,
        isFavorite: false,
        coordinates: this.props.newPath,
        id: '_' + Math.random().toString(36).substr(2, 9)
@@ -75,7 +76,7 @@ class AddPath extends Component {
                  <Input type="textarea"
                         value={this.state.fullDescription}
                         onChange={e => this.setState({ fullDescription: e.target.value })}/>
-                 <div>length</div>
+                 <div>{this.props.distance}</div>
                  <Button color="primary" type="submit">Add</Button>
                </Form>
              </Col>
@@ -93,17 +94,22 @@ class AddPath extends Component {
 AddPath.propTypes = {
   pathData: PropTypes.array,
   currentPathData: PropTypes.array,
+  distance: PropTypes.string,
 };
 export default connect(
  state => ({
    pathData: state.pathData,
    newPath: state.newPath,
+   distance: state.distance,
  }), dispatch => ({
    onAddNewPathData: (newPathData) => {
      dispatch(addNewPathData(newPathData));
    },
    onGetNewPath: () => {
      dispatch(getNewPath());
+   },
+   onGetDistance: () => {
+     dispatch(getDistance());
    },
  }))(AddPath);
 

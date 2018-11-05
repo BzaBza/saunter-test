@@ -6,6 +6,7 @@ import {withScriptjs, withGoogleMap, GoogleMap, DirectionsRenderer} from "react-
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import {getNewPath} from "../../redux-stuff/actions/newPath";
+import {getDistance} from "../../redux-stuff/actions/getDistance";
 
 let directions = [{lat:41.8507300, lng: -87.6512600}, {lat: 41.8507300, lng: -87.6512600}];
 
@@ -45,7 +46,26 @@ const MyMapComponent = compose(
        }
      });
    },
-   componentWillReceiveProps() {
+   componentDidUpdate() {
+     const origin = new google.maps.LatLng(directions[0].lat, directions[0].lng);
+     const destination = new google.maps.LatLng(directions[directions.length - 1].lat, directions[directions.length - 1].lng);
+
+     const service = new google.maps.DistanceMatrixService();
+     service.getDistanceMatrix(
+      {
+        origins: [origin],
+        destinations: [destination],
+        travelMode: 'WALKING',
+        avoidHighways: true,
+        avoidTolls: true,
+      }, (result, status) => {
+        if (status === 'OK') {
+          this.props.onGetDistance(result.rows[0].elements[0].distance.text)
+        } else {
+          console.error(`error statuss ${status}`);
+        }
+      });
+
      this.props.onGetNewPath(directions);
      const DirectionsService = new google.maps.DirectionsService();
      DirectionsService.route({
@@ -58,7 +78,7 @@ const MyMapComponent = compose(
            directions: result,
          });
        } else {
-         console.error(`error fetching directions ${result}`);
+         console.error(`error fetching directions ${status}`);
        }
      });
    }
@@ -93,18 +113,24 @@ class AddPathMap extends React.PureComponent {
      <MyMapComponent
       directions={directions}
       onGetNewPath={this.props.onGetNewPath}
+      onGetDistance={this.props.onGetDistance}
      />
     )
   }
 }
 AddPathMap.propTypes = {
   newPath: PropTypes.array,
+  distance: PropTypes.string,
 };
 export default connect(
  state => ({
    newPath: state.newPath,
+   distance: state.distance,
  }), dispatch => ({
    onGetNewPath: (directions) => {
      dispatch(getNewPath(directions));
+   },
+   onGetDistance: (distance) => {
+     dispatch(getDistance(distance));
    },
  }))(AddPathMap);

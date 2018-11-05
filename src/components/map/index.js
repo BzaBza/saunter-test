@@ -9,11 +9,12 @@ const MyMapComponent = compose(
  withProps({
    googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyArFoYz5gvVCKMaAUr-qH29gFdtx7Lp1Dk&callback=initMap",
    loadingElement: <div style={{height: `100%`}}/>,
-   containerElement: <div style={{height: `80vh`}}/>,
+   containerElement: <div style={{height: `75vh`}}/>,
    mapElement: <div style={{height: `100%`}}/>,
  }),
  withScriptjs,
  withGoogleMap,
+
  lifecycle({
    componentDidMount() {
      const DirectionsService = new google.maps.DirectionsService();
