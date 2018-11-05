@@ -15,13 +15,16 @@ class TableItem extends Component {
 
   openPath(pathData){
     this.props.onGetCurrentPath(pathData);
-    console.log(pathData)
   }
 
   render() {
     return (
        <ListGroup className="path-list">
-         {this.props.pathData.filter(item => item.pathTitle.includes(this.props.search || '')).map((value, index)=>
+         {this.props.pathData.filter(item => item.pathTitle.includes(this.props.search || '')).sort(function(a){
+           if(a.isFavorite === true){
+             return -1
+           } else{ return 1}
+         }).map((value, index)=>
            <ListGroupItem className="d-flex align-items-center" key={index} onClick={()=>{this.openPath(value)}}>
              <div>
                <FaExpandArrowsAlt/>

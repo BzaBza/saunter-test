@@ -7,6 +7,7 @@ import TableItem from "./components/table-item";
 import {fetchPathData} from "../../redux-stuff/actions/fetchPathData";
 import {getCurrentPath} from "../../redux-stuff/actions/currentPath";
 import {removeCurrentPath} from "../../redux-stuff/actions/removeCurrentPath";
+import {isFavorite} from "../../redux-stuff/actions/isFavorite";
 
 class MainPage extends Component {
   constructor(props) {
@@ -31,18 +32,17 @@ class MainPage extends Component {
                   value={this.state.search}
                   onChange={e => this.setState({search: e.target.value})}/>
          </div>
-
          <TableItem pathData={this.props.pathData} search={this.state.search}/>
        </Col>
        <Col md="6">
          <div className="d-flex justify-content-between">
            <h3>{this.props.currentPathData.pathTitle}</h3>
-           <span>{this.props.currentPathData.pathLength}</span>
+           <span>Distance: {this.props.currentPathData.pathLength}</span>
          </div>
          <p>{this.props.currentPathData.fullDescription}</p>
          <Map currentPathData={this.props.currentPathData}/>
       <div className="d-flex justify-content-between container">
-        <button className="btn">Favorite</button>
+        <button className="btn" onClick={()=>{this.props.onIsFavorite()}}>Favorite</button>
         <button className="btn" onClick={()=>{this.props.onRemoveCurrentPath(this.props.currentPathData.id)}}>Remove</button>
       </div>
        </Col>
@@ -67,5 +67,8 @@ export default connect(
    },
    onRemoveCurrentPath: (currentPath) => {
      dispatch(removeCurrentPath(currentPath));
+   },
+   onIsFavorite: () => {
+     dispatch(isFavorite());
    }
  }))(MainPage);

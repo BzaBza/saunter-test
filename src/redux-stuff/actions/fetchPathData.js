@@ -23,7 +23,7 @@ var mocPathData = [
     pathLength: '13 KM',
     isFavorite: false,
     coordinates:[
-      {lat: 40.737102, lng: -73.990318},
+      {lat: 40.237102, lng: -73.990318},
       {lat: 40.749825, lng: -73.987963},
       {lat: 45.752946, lng: -73.987384},
       {lat: 40.755823, lng: -73.986397},
@@ -38,7 +38,7 @@ var mocPathData = [
     pathLength: '13 KM',
     isFavorite: false,
     coordinates:[
-      {lat: 40.737102, lng: -72.990318},
+      {lat: 40.717102, lng: -72.990318},
       {lat: 40.749825, lng: -73.987963},
       {lat: 40.752946, lng: -73.987384},
       {lat: 41.755823, lng: -73.986397},
@@ -53,7 +53,7 @@ var mocPathData = [
     pathLength: '13 KM',
     isFavorite: false,
     coordinates:[
-      {lat: 40.737102, lng: -73.990318},
+      {lat: 40.777102, lng: -73.990318},
       {lat: 40.749825, lng: -73.987963},
       {lat: 40.752946, lng: -73.987384},
       {lat: 46.755823, lng: -73.986397},
@@ -68,7 +68,7 @@ var mocPathData = [
     pathLength: '13 KM',
     isFavorite: false,
     coordinates:[
-      {lat: 41.737102, lng: -73.990318},
+      {lat: 41.707102, lng: -73.990318},
       {lat: 40.749825, lng: -73.987963},
       {lat: 40.752946, lng: -73.987384},
       {lat: 40.755823, lng: -73.986397},
@@ -86,7 +86,7 @@ var mocPathData = [
       {lat: 40.737102, lng: -73.990318},
       {lat: 40.749825, lng: -73.987963},
       {lat: 40.752946, lng: -73.987384},
-      {lat: 40.755823, lng: -73.986397},
+      {lat: 40.735823, lng: -73.986397},
     ],
     id: '_' + Math.random().toString(36).substr(2, 9)
   }

@@ -76,7 +76,7 @@ class AddPath extends Component {
                  <Input type="textarea"
                         value={this.state.fullDescription}
                         onChange={e => this.setState({ fullDescription: e.target.value })}/>
-                 <div>{this.props.distance}</div>
+                 <div>Distance: {this.props.distance}</div>
                  <Button color="primary" type="submit">Add</Button>
                </Form>
              </Col>
